@@ -1,0 +1,36 @@
+FROM apache/airflow:2.4.0
+
+# Switch to root user to install system dependencies
+USER root
+
+# Install required development tools and MySQL client libraries
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    python3-dev \
+    default-libmysqlclient-dev \
+    build-essential \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Switch back to the airflow user
+USER airflow
+
+# Install mysqlclient via pip
+RUN pip install mysqlclient
+
+RUN pip install azure-servicebus
+
+# Copy your DAGs and scripts
+COPY ./airflow/ /opt/airflow/dags/
+COPY ../scripts/ /scripts/
+
+# Expose the default Airflow webserver port
+EXPOSE 8080
+
+# Airflow environment variables for the webserver
+ENV AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+ENV AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+
+# Run the Airflow webserver and scheduler
+CMD ["bash", "-c", "airflow db init && airflow webserver --debug & airflow scheduler"]

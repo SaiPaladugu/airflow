@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: airflow
+      MYSQL_USER: airflow
+      MYSQL_PASSWORD: airflow
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+
+  airflow:
+    build:
+      context: .
+      dockerfile: ./airflow/Dockerfile.airflow
+    depends_on:
+      - mysql
+    volumes:
+      - ./airflow:/opt/airflow/dags
+      - ./scripts:/scripts
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+mysqldb://airflow:airflow@mysql/airflow
+      - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    ports:
+      - "8080:8080"
+    command: bash -c "airflow db init && airflow webserver --debug & airflow scheduler"
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: ./fastapi/Dockerfile.fastapi
+    volumes:
+      - ./fastapi:/app
+    ports:
+      - "8000:8000"
+
+volumes:
+  mysql_data:

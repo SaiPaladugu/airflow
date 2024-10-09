@@ -1,18 +1,13 @@
-# Use a lightweight Python base image
-FROM python:3.9-slim
+FROM apache/airflow:2.10.2
 
-# Set the working directory inside the container
-WORKDIR /app/scripts
+# Switch to root to install the required packages
+USER root
 
-# Copy the ingestion.py script into the container
-COPY scripts/runtime.py .
-COPY scripts/ingest.py .
+# Install Docker SDK for Python
+RUN pip install docker
 
-# Install the required Python packages
-RUN pip install pandas huggingface_hub psutil
+# Ensure the data directory exists and set permissions (only user airflow)
+RUN mkdir -p /opt/airflow/data && chown airflow /opt/airflow/data
 
-# Ensure the data directory exists (will be mounted to host)
-RUN mkdir -p /app/data
-
-# Set the command to execute the ingestion script
-CMD ["python", "runtime.py", "ingest.py"]
+# Switch back to airflow user
+USER airflow

@@ -1,6 +1,6 @@
-numpy==1.26.4
-cvxopt==1.3.2
-matplotlib==3.7.2
-pandas==2.1.0
-autograd==1.6.2
-# jax==0.4.14
+run instructions:
+
+first is the ingest dockerfile
+docker build -t ingest .
+docker run -v $(pwd)/data:/app/data ingest
+

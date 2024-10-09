@@ -2,6 +2,8 @@ import os
 import pandas as pd
 import re
 
+print('preprocess 12345')
+
 # Utility function to check if a file exists
 def file_exists(file_path: str):
     if not os.path.exists(file_path):
@@ -69,8 +71,8 @@ def convert_numeric(df: pd.DataFrame):
     print(f"Converted string columns to numeric where applicable.")
     return df
 
-# Main preprocessing function that applies all cleaning steps
-def preprocess_data(input_csv: str, output_csv: str):
+# Main preprocessing function that applies all cleaning steps and updates the same CSV
+def preprocess_data(input_csv: str):
     # Check if the input CSV file exists
     if not file_exists(input_csv):
         return
@@ -90,13 +92,12 @@ def preprocess_data(input_csv: str, output_csv: str):
     # Final shape of the cleaned dataset
     print(f"Final dataset shape: {df.shape}")
     
-    # Save cleaned dataset to a new CSV
-    df.to_csv(output_csv, index=False)
-    print(f"Cleaned dataset saved to {output_csv}")
+    # Save the cleaned dataset back to the original CSV
+    df.to_csv(input_csv, index=False)
+    print(f"Cleaned dataset updated in {input_csv}")
 
 # Main execution
 if __name__ == "__main__":
-    input_csv_path = '../data/reddit_dataset_2011.csv'
-    output_csv_path = '../data/reddit_dataset_2011_clean.csv'
+    input_csv_path = '/opt/airflow/data/reddit_dataset_2011.csv'
 
-    preprocess_data(input_csv_path, output_csv_path)
+    preprocess_data(input_csv_path)

@@ -1,0 +1,38 @@
+[2024-10-08T14:16:35.664+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2024-10-08T14:16:35.677+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_dag.preprocess_data manual__2024-10-08T14:16:27.944815+00:00 [queued]>
+[2024-10-08T14:16:35.683+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_dag.preprocess_data manual__2024-10-08T14:16:27.944815+00:00 [queued]>
+[2024-10-08T14:16:35.683+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 1
+[2024-10-08T14:16:35.700+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): preprocess_data> on 2024-10-08 14:16:27.944815+00:00
+[2024-10-08T14:16:35.710+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=98) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-08T14:16:35.712+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_dag', 'preprocess_data', 'manual__2024-10-08T14:16:27.944815+00:00', '--job-id', '25', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmpff84h_6g']
+[2024-10-08T14:16:35.714+0000] {standard_task_runner.py:105} INFO - Job 25: Subtask preprocess_data
+[2024-10-08T14:16:35.713+0000] {standard_task_runner.py:72} INFO - Started process 99 to run task
+[2024-10-08T14:16:35.771+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_dag.preprocess_data manual__2024-10-08T14:16:27.944815+00:00 [running]> on host cfbe8eea48b1
+[2024-10-08T14:16:35.873+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_dag' AIRFLOW_CTX_TASK_ID='preprocess_data' AIRFLOW_CTX_EXECUTION_DATE='2024-10-08T14:16:27.944815+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-08T14:16:27.944815+00:00'
+[2024-10-08T14:16:35.876+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2024-10-08T14:16:35.916+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-10-08T14:16:35.916+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/runtime.py /opt/***/scripts/preprocess.py']
+[2024-10-08T14:16:35.927+0000] {subprocess.py:86} INFO - Output:
+[2024-10-08T14:16:36.885+0000] {subprocess.py:93} INFO - Error: ../data/reddit_dataset_2011.csv does not exist. Please check the file path.
+[2024-10-08T14:16:37.091+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:16:37.093+0000] {subprocess.py:93} INFO - Starting script: /opt/***/scripts/preprocess.py
+[2024-10-08T14:16:37.094+0000] {subprocess.py:93} INFO - Finished script: /opt/***/scripts/preprocess.py
+[2024-10-08T14:16:37.095+0000] {subprocess.py:93} INFO - Execution time: 1.00 seconds
+[2024-10-08T14:16:37.096+0000] {subprocess.py:93} INFO - Average CPU usage: 0.00%
+[2024-10-08T14:16:37.097+0000] {subprocess.py:93} INFO - Maximum RAM usage: 0.00 MB
+[2024-10-08T14:16:37.098+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:16:37.099+0000] {subprocess.py:93} INFO - ===== Summary =====
+[2024-10-08T14:16:37.100+0000] {subprocess.py:93} INFO - Script: /opt/***/scripts/preprocess.py
+[2024-10-08T14:16:37.101+0000] {subprocess.py:93} INFO -   Execution time: 1.00 seconds
+[2024-10-08T14:16:37.102+0000] {subprocess.py:93} INFO -   Average CPU usage: 0.00%
+[2024-10-08T14:16:37.103+0000] {subprocess.py:93} INFO -   Maximum RAM usage: 0.00 MB
+[2024-10-08T14:16:37.106+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:16:37.108+0000] {subprocess.py:93} INFO - Total execution time for all scripts: 1.00 seconds
+[2024-10-08T14:16:37.119+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2024-10-08T14:16:37.195+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2024-10-08T14:16:37.196+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=data_pipeline_dag, task_id=preprocess_data, run_id=manual__2024-10-08T14:16:27.944815+00:00, execution_date=20241008T141627, start_date=20241008T141635, end_date=20241008T141637
+[2024-10-08T14:16:37.254+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2024-10-08T14:16:37.388+0000] {taskinstance.py:3900} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-10-08T14:16:37.405+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

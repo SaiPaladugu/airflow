@@ -4,15 +4,18 @@ import json
 import gzip
 from huggingface_hub import hf_hub_download
 
+print('ingest 12345')
+
 # Chosen Dataset & File
 repo_id = "sentence-transformers/reddit-title-body"
 filename = "reddit_title_text_2011.jsonl.gz"
-compressed_file_path = '../data/reddit_title_text_2011.jsonl.gz'  # Save the .gz file temporarily in /data
-extracted_file_path = '../data/reddit_title_text_2011.jsonl'       # Extract the .jsonl in /data
 
-# Save to
-output_csv_path = '../data/reddit_dataset_2011.csv'                # Final CSV saved in /data
-sample_csv_path = '../data/sample.csv'                             # Sample CSV with the first 100 lines
+# Absolute paths for the data directory
+compressed_file_path = '/opt/airflow/data/reddit_title_text_2011.jsonl.gz'
+extracted_file_path = '/opt/airflow/data/reddit_title_text_2011.jsonl'
+output_csv_path = '/opt/airflow/data/reddit_dataset_2011.csv'
+sample_csv_path = '/opt/airflow/data/sample.csv'
+
 
 def download_file_from_hub(repo_id: str, filename: str, output_path: str):
     """
@@ -120,3 +123,9 @@ if __name__ == "__main__":
 
     # Step 5: Create a sample CSV with the first 100 lines
     create_sample_csv(output_csv_path, sample_csv_path)
+    
+    if os.path.exists(output_csv_path):
+        print(f"File {output_csv_path} exists after saving.")
+    else:
+        print(f"File {output_csv_path} does NOT exist after saving.")
+

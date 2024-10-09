@@ -1,0 +1,45 @@
+[2024-10-08T14:52:25.790+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2024-10-08T14:52:25.807+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_dag.analyze_data manual__2024-10-08T14:47:45.716013+00:00 [queued]>
+[2024-10-08T14:52:25.815+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_dag.analyze_data manual__2024-10-08T14:47:45.716013+00:00 [queued]>
+[2024-10-08T14:52:25.815+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 1
+[2024-10-08T14:52:25.825+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): analyze_data> on 2024-10-08 14:47:45.716013+00:00
+[2024-10-08T14:52:25.835+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=179) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-08T14:52:25.838+0000] {standard_task_runner.py:72} INFO - Started process 180 to run task
+[2024-10-08T14:52:25.837+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_dag', 'analyze_data', 'manual__2024-10-08T14:47:45.716013+00:00', '--job-id', '41', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmp6gw9f3ok']
+[2024-10-08T14:52:25.840+0000] {standard_task_runner.py:105} INFO - Job 41: Subtask analyze_data
+[2024-10-08T14:52:25.881+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_dag.analyze_data manual__2024-10-08T14:47:45.716013+00:00 [running]> on host 8029d1b95cb3
+[2024-10-08T14:52:25.955+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_dag' AIRFLOW_CTX_TASK_ID='analyze_data' AIRFLOW_CTX_EXECUTION_DATE='2024-10-08T14:47:45.716013+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-08T14:47:45.716013+00:00'
+[2024-10-08T14:52:25.956+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2024-10-08T14:52:25.968+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-10-08T14:52:25.969+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/runtime.py /opt/***/scripts/analyze.py']
+[2024-10-08T14:52:25.977+0000] {subprocess.py:86} INFO - Output:
+[2024-10-08T14:52:27.992+0000] {subprocess.py:93} INFO - /home/***/.local/lib/python3.12/site-packages/dask/dataframe/__init__.py:42: FutureWarning:
+[2024-10-08T14:52:28.009+0000] {subprocess.py:93} INFO - Dask dataframe query planning is disabled because dask-expr is not installed.
+[2024-10-08T14:52:28.010+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:52:28.010+0000] {subprocess.py:93} INFO - You can install it with `pip install dask[dataframe]` or `conda install dask`.
+[2024-10-08T14:52:28.011+0000] {subprocess.py:93} INFO - This will raise in a future version.
+[2024-10-08T14:52:28.011+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:52:28.011+0000] {subprocess.py:93} INFO -   warnings.warn(msg, FutureWarning)
+[2024-10-08T14:52:28.012+0000] {subprocess.py:93} INFO - Error: ../data/reddit_dataset_2011.csv does not exist. Please check the file path.
+[2024-10-08T14:52:28.173+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:52:28.173+0000] {subprocess.py:93} INFO - Starting script: /opt/***/scripts/analyze.py
+[2024-10-08T14:52:28.174+0000] {subprocess.py:93} INFO - Finished script: /opt/***/scripts/analyze.py
+[2024-10-08T14:52:28.174+0000] {subprocess.py:93} INFO - Execution time: 2.01 seconds
+[2024-10-08T14:52:28.174+0000] {subprocess.py:93} INFO - Average CPU usage: 159.00%
+[2024-10-08T14:52:28.175+0000] {subprocess.py:93} INFO - Maximum RAM usage: 82.03 MB
+[2024-10-08T14:52:28.175+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:52:28.175+0000] {subprocess.py:93} INFO - ===== Summary =====
+[2024-10-08T14:52:28.176+0000] {subprocess.py:93} INFO - Script: /opt/***/scripts/analyze.py
+[2024-10-08T14:52:28.176+0000] {subprocess.py:93} INFO -   Execution time: 2.01 seconds
+[2024-10-08T14:52:28.176+0000] {subprocess.py:93} INFO -   Average CPU usage: 159.00%
+[2024-10-08T14:52:28.176+0000] {subprocess.py:93} INFO -   Maximum RAM usage: 82.03 MB
+[2024-10-08T14:52:28.177+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:52:28.177+0000] {subprocess.py:93} INFO - Total execution time for all scripts: 2.01 seconds
+[2024-10-08T14:52:28.190+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2024-10-08T14:52:28.251+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2024-10-08T14:52:28.252+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=data_pipeline_dag, task_id=analyze_data, run_id=manual__2024-10-08T14:47:45.716013+00:00, execution_date=20241008T144745, start_date=20241008T145225, end_date=20241008T145228
+[2024-10-08T14:52:28.312+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2024-10-08T14:52:28.348+0000] {taskinstance.py:3900} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-08T14:52:28.350+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

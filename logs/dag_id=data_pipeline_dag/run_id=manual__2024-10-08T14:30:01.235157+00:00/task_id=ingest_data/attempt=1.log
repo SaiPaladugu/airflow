@@ -1,0 +1,45 @@
+[2024-10-08T14:30:11.091+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2024-10-08T14:30:11.137+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_dag.ingest_data manual__2024-10-08T14:30:01.235157+00:00 [queued]>
+[2024-10-08T14:30:11.149+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_dag.ingest_data manual__2024-10-08T14:30:01.235157+00:00 [queued]>
+[2024-10-08T14:30:11.150+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 1
+[2024-10-08T14:30:11.204+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): ingest_data> on 2024-10-08 14:30:01.235157+00:00
+[2024-10-08T14:30:11.335+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=72) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-08T14:30:11.335+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_dag', 'ingest_data', 'manual__2024-10-08T14:30:01.235157+00:00', '--job-id', '29', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmpyjhcumbt']
+[2024-10-08T14:30:11.348+0000] {standard_task_runner.py:105} INFO - Job 29: Subtask ingest_data
+[2024-10-08T14:30:11.346+0000] {standard_task_runner.py:72} INFO - Started process 80 to run task
+[2024-10-08T14:30:11.619+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_dag.ingest_data manual__2024-10-08T14:30:01.235157+00:00 [running]> on host d2aa38be11ee
+[2024-10-08T14:30:11.862+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_dag' AIRFLOW_CTX_TASK_ID='ingest_data' AIRFLOW_CTX_EXECUTION_DATE='2024-10-08T14:30:01.235157+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-08T14:30:01.235157+00:00'
+[2024-10-08T14:30:11.865+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2024-10-08T14:30:11.933+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-10-08T14:30:11.934+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/runtime.py /opt/***/scripts/ingest.py']
+[2024-10-08T14:30:11.959+0000] {subprocess.py:86} INFO - Output:
+[2024-10-08T14:30:41.947+0000] {subprocess.py:93} INFO - Downloading reddit_title_text_2011.jsonl.gz from sentence-transformers/reddit-title-body...
+[2024-10-08T14:30:41.965+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2024-10-08T14:30:41.965+0000] {subprocess.py:93} INFO -   File "/opt/***/scripts/ingest.py", line 112, in <module>
+[2024-10-08T14:30:41.969+0000] {subprocess.py:93} INFO -     download_file_from_hub(repo_id, filename, compressed_file_path)
+[2024-10-08T14:30:41.970+0000] {subprocess.py:93} INFO -   File "/opt/***/scripts/ingest.py", line 34, in download_file_from_hub
+[2024-10-08T14:30:41.971+0000] {subprocess.py:93} INFO -     os.makedirs(os.path.dirname(output_path), exist_ok=True)
+[2024-10-08T14:30:41.973+0000] {subprocess.py:93} INFO -   File "<frozen os>", line 225, in makedirs
+[2024-10-08T14:30:41.973+0000] {subprocess.py:93} INFO - PermissionError: [Errno 13] Permission denied: '../data'
+[2024-10-08T14:30:43.556+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:30:43.561+0000] {subprocess.py:93} INFO - Starting script: /opt/***/scripts/ingest.py
+[2024-10-08T14:30:43.562+0000] {subprocess.py:93} INFO - Finished script: /opt/***/scripts/ingest.py
+[2024-10-08T14:30:43.563+0000] {subprocess.py:93} INFO - Execution time: 31.23 seconds
+[2024-10-08T14:30:43.563+0000] {subprocess.py:93} INFO - Average CPU usage: 49.58%
+[2024-10-08T14:30:43.563+0000] {subprocess.py:93} INFO - Maximum RAM usage: 148.52 MB
+[2024-10-08T14:30:43.564+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:30:43.564+0000] {subprocess.py:93} INFO - ===== Summary =====
+[2024-10-08T14:30:43.564+0000] {subprocess.py:93} INFO - Script: /opt/***/scripts/ingest.py
+[2024-10-08T14:30:43.565+0000] {subprocess.py:93} INFO -   Execution time: 31.23 seconds
+[2024-10-08T14:30:43.565+0000] {subprocess.py:93} INFO -   Average CPU usage: 49.58%
+[2024-10-08T14:30:43.565+0000] {subprocess.py:93} INFO -   Maximum RAM usage: 148.52 MB
+[2024-10-08T14:30:43.566+0000] {subprocess.py:93} INFO - 
+[2024-10-08T14:30:43.566+0000] {subprocess.py:93} INFO - Total execution time for all scripts: 31.23 seconds
+[2024-10-08T14:30:43.609+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2024-10-08T14:30:43.787+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2024-10-08T14:30:43.789+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=data_pipeline_dag, task_id=ingest_data, run_id=manual__2024-10-08T14:30:01.235157+00:00, execution_date=20241008T143001, start_date=20241008T143011, end_date=20241008T143043
+[2024-10-08T14:30:43.884+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2024-10-08T14:30:44.011+0000] {taskinstance.py:3900} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-10-08T14:30:44.012+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

@@ -1,0 +1,39 @@
+[2024-10-08T15:04:29.092+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2024-10-08T15:04:29.104+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_dag.analyze_data manual__2024-10-08T15:03:57.543311+00:00 [queued]>
+[2024-10-08T15:04:29.109+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_dag.analyze_data manual__2024-10-08T15:03:57.543311+00:00 [queued]>
+[2024-10-08T15:04:29.109+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 1
+[2024-10-08T15:04:29.116+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): analyze_data> on 2024-10-08 15:03:57.543311+00:00
+[2024-10-08T15:04:29.124+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=207) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-08T15:04:29.125+0000] {standard_task_runner.py:72} INFO - Started process 208 to run task
+[2024-10-08T15:04:29.124+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_dag', 'analyze_data', 'manual__2024-10-08T15:03:57.543311+00:00', '--job-id', '46', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmp2g81sc26']
+[2024-10-08T15:04:29.126+0000] {standard_task_runner.py:105} INFO - Job 46: Subtask analyze_data
+[2024-10-08T15:04:29.159+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_dag.analyze_data manual__2024-10-08T15:03:57.543311+00:00 [running]> on host cb8805dd20b7
+[2024-10-08T15:04:29.207+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_dag' AIRFLOW_CTX_TASK_ID='analyze_data' AIRFLOW_CTX_EXECUTION_DATE='2024-10-08T15:03:57.543311+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-08T15:03:57.543311+00:00'
+[2024-10-08T15:04:29.207+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2024-10-08T15:04:29.217+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-10-08T15:04:29.217+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/runtime.py /opt/***/scripts/analyze.py']
+[2024-10-08T15:04:29.222+0000] {subprocess.py:86} INFO - Output:
+[2024-10-08T15:04:31.135+0000] {subprocess.py:93} INFO - analyze 12345
+[2024-10-08T15:04:31.139+0000] {subprocess.py:93} INFO - Error: /opt/***/data/reddit_dataset_2011.csv does not exist. Please check the file path.
+[2024-10-08T15:04:31.391+0000] {subprocess.py:93} INFO - 
+[2024-10-08T15:04:31.392+0000] {subprocess.py:93} INFO - Starting script: /opt/***/scripts/analyze.py
+[2024-10-08T15:04:31.392+0000] {subprocess.py:93} INFO - Finished script: /opt/***/scripts/analyze.py
+[2024-10-08T15:04:31.392+0000] {subprocess.py:93} INFO - Execution time: 2.01 seconds
+[2024-10-08T15:04:31.393+0000] {subprocess.py:93} INFO - Average CPU usage: 158.20%
+[2024-10-08T15:04:31.393+0000] {subprocess.py:93} INFO - Maximum RAM usage: 106.14 MB
+[2024-10-08T15:04:31.393+0000] {subprocess.py:93} INFO - 
+[2024-10-08T15:04:31.394+0000] {subprocess.py:93} INFO - ===== Summary =====
+[2024-10-08T15:04:31.394+0000] {subprocess.py:93} INFO - Script: /opt/***/scripts/analyze.py
+[2024-10-08T15:04:31.394+0000] {subprocess.py:93} INFO -   Execution time: 2.01 seconds
+[2024-10-08T15:04:31.394+0000] {subprocess.py:93} INFO -   Average CPU usage: 158.20%
+[2024-10-08T15:04:31.394+0000] {subprocess.py:93} INFO -   Maximum RAM usage: 106.14 MB
+[2024-10-08T15:04:31.395+0000] {subprocess.py:93} INFO - 
+[2024-10-08T15:04:31.395+0000] {subprocess.py:93} INFO - Total execution time for all scripts: 2.01 seconds
+[2024-10-08T15:04:31.403+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2024-10-08T15:04:31.459+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2024-10-08T15:04:31.460+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=data_pipeline_dag, task_id=analyze_data, run_id=manual__2024-10-08T15:03:57.543311+00:00, execution_date=20241008T150357, start_date=20241008T150429, end_date=20241008T150431
+[2024-10-08T15:04:31.531+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2024-10-08T15:04:31.562+0000] {taskinstance.py:3900} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-08T15:04:31.563+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

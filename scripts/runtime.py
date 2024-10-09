@@ -1,63 +1,94 @@
+import subprocess
+import sys
 import time
 import psutil
-import os
+import threading
 
-def profile_resource_usage(func):
+def monitor_process(proc, interval, stats):
     """
-    Decorator to profile CPU, memory, and disk usage for a function.
-
-    Args:
-        func (callable): The function to profile.
-
-    Returns:
-        callable: A wrapped function that profiles resource usage.
+    Monitor the CPU and RAM usage of a subprocess.
     """
-    def wrapper(*args, **kwargs):
-        # Get system usage before execution
-        cpu_start = psutil.cpu_percent(interval=None)
-        memory_start = psutil.virtual_memory().used / (1024 ** 3)  # Convert bytes to GB
-        disk_start = psutil.disk_usage('/').used / (1024 ** 3)     # Convert bytes to GB
+    process = psutil.Process(proc.pid)
+    while proc.poll() is None:
+        try:
+            cpu = process.cpu_percent(interval=interval)
+            mem = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+            stats['cpu'].append(cpu)
+            stats['mem'].append(mem)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            break
 
-        # Start the timer
-        start_time = time.time()
+def run_script(script, args):
+    """
+    Run a script and monitor its resource usage.
+    """
+    print(f"\nStarting script: {script} {' '.join(args)}")
+    stats = {'cpu': [], 'mem': []}
+    start_time = time.time()
 
-        # Execute the function
-        result = func(*args, **kwargs)
+    # Start the subprocess
+    proc = subprocess.Popen([sys.executable, script] + args)
 
-        # End the timer
-        end_time = time.time()
+    # Start the monitoring thread
+    monitor_thread = threading.Thread(target=monitor_process, args=(proc, 1, stats))
+    monitor_thread.start()
 
-        # Get system usage after execution
-        cpu_end = psutil.cpu_percent(interval=None)
-        memory_end = psutil.virtual_memory().used / (1024 ** 3)
-        disk_end = psutil.disk_usage('/').used / (1024 ** 3)
+    # Wait for the subprocess to finish
+    proc.wait()
+    monitor_thread.join()
+    end_time = time.time()
 
-        print(f"Execution time: {end_time - start_time:.2f} seconds")
-        print(f"CPU usage: {cpu_end - cpu_start:.2f}%")
-        print(f"Memory used: {memory_end - memory_start:.2f} GB")
-        print(f"Disk space used: {disk_end - disk_start:.2f} GB")
+    # Calculate statistics
+    total_time = end_time - start_time
+    avg_cpu = sum(stats['cpu']) / len(stats['cpu']) if stats['cpu'] else 0
+    max_mem = max(stats['mem']) if stats['mem'] else 0
 
-        return result
+    print(f"Finished script: {script}")
+    print(f"Execution time: {total_time:.2f} seconds")
+    print(f"Average CPU usage: {avg_cpu:.2f}%")
+    print(f"Maximum RAM usage: {max_mem:.2f} MB")
 
-    return wrapper
+    return {'script': script, 'time': total_time, 'avg_cpu': avg_cpu, 'max_mem': max_mem}
 
-@profile_resource_usage
-def run_analysis(input_csv: str):
-    from analyze import analyze_data
-    analyze_data(input_csv, 'title')
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python runtime.py <script1> [script1_args] -- <script2> [script2_args] -- ...")
+        sys.exit(1)
 
-@profile_resource_usage
-def run_transformation(input_csv: str, output_csv: str):
-    from transform import transform_data
-    transform_data(input_csv, output_csv, 'title')
+    # Parse the scripts and their arguments
+    scripts_and_args = []
+    current_script = []
+    for arg in sys.argv[1:]:
+        if arg == '--':
+            if current_script:
+                scripts_and_args.append(current_script)
+                current_script = []
+        else:
+            current_script.append(arg)
+    if current_script:
+        scripts_and_args.append(current_script)
 
-# Main execution
+    total_stats = []
+    total_start_time = time.time()
+
+    # Run each script sequentially
+    for script_args in scripts_and_args:
+        script = script_args[0]
+        args = script_args[1:]
+        stats = run_script(script, args)
+        total_stats.append(stats)
+
+    total_end_time = time.time()
+    overall_time = total_end_time - total_start_time
+
+    # Summary of all scripts
+    print("\n===== Summary =====")
+    for stat in total_stats:
+        print(f"Script: {stat['script']}")
+        print(f"  Execution time: {stat['time']:.2f} seconds")
+        print(f"  Average CPU usage: {stat['avg_cpu']:.2f}%")
+        print(f"  Maximum RAM usage: {stat['max_mem']:.2f} MB")
+    print(f"\nTotal execution time for all scripts: {overall_time:.2f} seconds")
+
 if __name__ == "__main__":
-    input_csv_path = '../data/reddit_dataset_2011_clean.csv'
-    output_csv_path = '../data/reddit_dataset_2011_transformed.csv'
-
-    # Profile analysis
-    run_analysis(input_csv_path)
-
-    # Profile transformation
-    run_transformation(input_csv_path, output_csv_path)
+    main()
